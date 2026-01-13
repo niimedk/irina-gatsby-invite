@@ -209,8 +209,8 @@
   </div>
 </div>
 
-<audio id="music" loop>
-  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Joplin/Scott_Joplin_-_01_-_The_Entertainer.mp3" type="audio/mpeg">
+<audio id="music" loop preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1b9f5e8f3b.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -230,7 +230,7 @@
     <div class="value">23 февраля 2026 · Понедельник</div>
 
     <div class="label">Начало вечера</div>
-    <div class="value">16:00</div>
+    <div class="value">17:00</div>
 
     <div class="label">Где</div>
     <div class="value">Дорожная улица, 214 · Яблоновский</div>
@@ -270,10 +270,17 @@
   function enterSite() {
     document.getElementById('cover').classList.add('hidden');
     const music = document.getElementById('music');
-    music.play().catch(()=>{});
+    music.volume = 0.5;
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log('Автозапуск музыки заблокирован браузером');
+      });
+    }
+  });
   }
 
-  const eventDate = new Date('2026-02-23T16:00:00');
+  const eventDate = new Date('2026-02-23T17:00:00');
   const timerEl = document.getElementById('timer');
 
   function updateTimer() {
