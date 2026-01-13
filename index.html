@@ -17,34 +17,6 @@
       overflow-x: hidden;
     }
 
-    /* Fade-in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Shimmer gold effect */
-    .gold-shimmer {
-      background: linear-gradient(90deg, #c9a44c, #fff2a6, #c9a44c);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
     .cover {
       position: fixed;
       inset: 0;
@@ -187,9 +159,11 @@
     .buttons {
       margin-top: 50px;
       display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
     }
 
     .btn {
@@ -201,19 +175,19 @@
       font-size: 16px;
       letter-spacing: 4px;
       text-decoration: none;
+      transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.3s ease;
     }
 
     .btn:hover {
       background: #c9a44c;
       color: #000000;
-      box-shadow: 0 0 20px rgba(201,164,76,0.6), 0 0 40px rgba(201,164,76,0.3);
     }
 
     .hint-text {
+      margin-top: 8px;
       font-size: 12px;
       opacity: 0.55;
       font-style: italic;
@@ -252,12 +226,12 @@
 </audio>
 
 <div class="container">
-  <div class="card fade-in" style="animation-delay:0.3s">
+  <div class="card">
 
-    <h1 class="gold-shimmer fade-in" style="animation-delay:0.6s">Ирина</h1>
-    <h2 class="fade-in" style="animation-delay:0.9s">Юбилей · 60 лет</h2>
+    <h1>Ирина</h1>
+    <h2>Юбилей · 60 лет</h2>
 
-    <div class="invite-text fade-in" style="animation-delay:1.2s">
+    <div class="invite-text">
       Я приглашаю вас провести этот вечер вместе со мной — красиво, легко и с настроением эпохи джаза.
       Пусть этот юбилей станет поводом надеть лучшие наряды, поднять бокал и просто насладиться моментом.
     </div>
@@ -290,14 +264,14 @@
       Буду рада, если вы подтвердите своё присутствие
     </div>
 
-    <div class="buttons fade-in" style="animation-delay:1.5s">
+    <div class="buttons">
       <a class="btn" href="https://t.me/+-y1-bUOXXd40NWRi" target="_blank">
-        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9.04 15.47 8.87 19c.39 0 .56-.17.77-.38l1.84-1.76 3.81 2.79c.7.39 1.2.19 1.38-.65l2.5-11.74h0c.21-.99-.36-1.38-1.04-1.13L2.3 9.54c-.95.37-.93.9-.16 1.14l4.41 1.38L16.9 6.26c.49-.3.94-.13.57.2"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M9.04 15.47 8.87 19c.39 0 .56-.17.77-.38l1.84-1.76 3.81 2.79c.7.39 1.2.19 1.38-.65l2.5-11.74h0c.21-.99-.36-1.38-1.04-1.13L2.3 9.54c-.95.37-.93.9-.16 1.14l4.41 1.38L16.9 6.26c.49-.3.94-.13.57.2"/></svg>
         Я буду
       </a>
       <div class="hint-text">Если кнопки не нажимаются — включите VPN и не нервничайте, спасибо 😘</div>
       <a class="btn" href="https://wa.me/79885209680?text=К%20сожалению%2C%20не%20смогу%20присутствовать%2C%20но%20благодарю%20за%20приглашение" target="_blank">
-        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.41 0 .04 5.37.04 12c0 2.11.55 4.17 1.6 6.01L0 24l6.16-1.61A11.94 11.94 0 0 0 12.04 24C18.67 24 24 18.63 24 12a11.82 11.82 0 0 0-3.48-8.52z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.41 0 .04 5.37.04 12c0 2.11.55 4.17 1.6 6.01L0 24l6.16-1.61A11.94 11.94 0 0 0 12.04 24C18.67 24 24 18.63 24 12a11.82 11.82 0 0 0-3.48-8.52z"/></svg>
         Не смогу присутствовать
       </a>
     </div>
@@ -315,18 +289,13 @@
   function enterSite() {
     document.getElementById('cover').classList.add('hidden');
     const music = document.getElementById('music');
-    music.volume = 0;
-    music.play().then(() => {
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 0.5) {
-          vol += 0.02;
-          music.volume = vol;
-        } else clearInterval(fade);
-      }, 100);
-    }).catch(() => {
-      console.log('Автозапуск музыки заблокирован браузером');
-    });
+    music.volume = 0.5;
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log('Автозапуск музыки заблокирован браузером');
+      });
+    }
   }
 
   const eventDate = new Date('2026-02-23T17:00:00');
@@ -335,13 +304,16 @@
   function updateTimer() {
     const now = new Date();
     const diff = eventDate - now;
+
     if (diff <= 0) {
       timerEl.innerHTML = 'Вечер начинается';
       return;
     }
+
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const m = Math.floor((diff / (1000 * 60)) % 60);
+
     timerEl.innerHTML = `До начала вечера: ${d} д · ${h} ч · ${m} мин`;
   }
 
