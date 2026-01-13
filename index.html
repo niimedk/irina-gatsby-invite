@@ -206,7 +206,30 @@
     }
 
     audio { display: none; }
-  </style>
+  /* Анимация кнопок */
+.action-btn{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.action-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+.action-btn img{
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.action-btn:hover img{
+    opacity: 0.9;
+    transform: scale(1.1);
+}
+
+.hint-text{
+    margin-top: 12px;
+    font-size: 12px;
+    opacity: 0.55;
+    font-style: italic;
+    text-align: center;
+}
+</style>
 </head>
 <body>
 
@@ -216,6 +239,9 @@
     <p>Юбилейный вечер</p>
     <button class="enter-btn" onclick="enterSite()">Войти в атмосферу</button>
   </div>
+
+<div class="hint-text">Если кнопки не нажимаются — включите VPN и не нервничайте, спасибо 😘</div>
+
 </div>
 
 <audio id="music" loop preload="auto">
@@ -266,7 +292,7 @@
         <svg viewBox="0 0 24 24"><path d="M9.04 15.47 8.87 19c.39 0 .56-.17.77-.38l1.84-1.76 3.81 2.79c.7.39 1.2.19 1.38-.65l2.5-11.74h0c.21-.99-.36-1.38-1.04-1.13L2.3 9.54c-.95.37-.93.9-.16 1.14l4.41 1.38L16.9 6.26c.49-.3.94-.13.57.2"/></svg>
         Я буду
       </a>
-      <a class="btn" href="https://wa.me/79885209532?text=К%20сожалению%2C%20не%20смогу%20присутствовать%2C%20но%20благодарю%20за%20приглашение" target="_blank">
+      <a class="btn" href="https://wa.me/79885209680?text=К%20сожалению%2C%20не%20смогу%20присутствовать%2C%20но%20благодарю%20за%20приглашение" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.41 0 .04 5.37.04 12c0 2.11.55 4.17 1.6 6.01L0 24l6.16-1.61A11.94 11.94 0 0 0 12.04 24C18.67 24 24 18.63 24 12a11.82 11.82 0 0 0-3.48-8.52z"/></svg>
         Не смогу присутствовать
       </a>
