@@ -159,11 +159,9 @@
     .buttons {
       margin-top: 50px;
       display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
+      gap: 15px;
     }
 
     .btn {
@@ -175,10 +173,11 @@
       font-size: 16px;
       letter-spacing: 4px;
       text-decoration: none;
-      transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -206,6 +205,44 @@
       margin-top: 45px;
       font-size: 16px;
       color: #e5d9a3;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .modal-content {
+      background: #1c1c1c;
+      padding: 40px 30px;
+      border-radius: 16px;
+      text-align: center;
+      border: 2px solid #c9a44c;
+      color: #f5e6b8;
+    }
+
+    .modal-content button {
+      margin-top: 25px;
+      padding: 12px 28px;
+      border: 2px solid #c9a44c;
+      background: transparent;
+      color: #c9a44c;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .modal-content button:hover {
+      background: #c9a44c;
+      color: #000;
     }
 
     audio { display: none; }
@@ -265,12 +302,7 @@
     </div>
 
     <div class="buttons">
-      <a class="btn" href="https://t.me/+-y1-bUOXXd40NWRi" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M9.04 15.47 8.87 19c.39 0 .56-.17.77-.38l1.84-1.76 3.81 2.79c.7.39 1.2.19 1.38-.65l2.5-11.74h0c.21-.99-.36-1.38-1.04-1.13L2.3 9.54c-.95.37-.93.9-.16 1.14l4.41 1.38L16.9 6.26c.49-.3.94-.13.57.2"/></svg>
-        Я буду
-      </a>
-      <div class="hint-text">Если кнопки не нажимаются — включите VPN </div>
-      <a class="btn" href="https://wa.me/79885209680?text=К%20сожалению%2C%20не%20смогу%20присутствовать%2C%20но%20благодарю%20за%20приглашение" target="_blank">
+      <a class="btn" onclick="showModal()">
         <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.41 0 .04 5.37.04 12c0 2.11.55 4.17 1.6 6.01L0 24l6.16-1.61A11.94 11.94 0 0 0 12.04 24C18.67 24 24 18.63 24 12a11.82 11.82 0 0 0-3.48-8.52z"/></svg>
         Не смогу присутствовать
       </a>
@@ -285,17 +317,27 @@
   </footer>
 </div>
 
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p>Это невозможно</p>
+    <button onclick="goToTelegram()">Значит буду</button>
+  </div>
+</div>
+
 <script>
   function enterSite() {
     document.getElementById('cover').classList.add('hidden');
     const music = document.getElementById('music');
     music.volume = 0.5;
-    const playPromise = music.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        console.log('Автозапуск музыки заблокирован браузером');
-      });
-    }
+    music.play().catch(() => console.log('Автозапуск музыки заблокирован браузером'));
+  }
+
+  function showModal() {
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function goToTelegram() {
+    window.open('https://t.me/+-y1-bUOXXd40NWRi', '_blank');
   }
 
   const eventDate = new Date('2026-02-23T17:00:00');
@@ -304,16 +346,13 @@
   function updateTimer() {
     const now = new Date();
     const diff = eventDate - now;
-
     if (diff <= 0) {
       timerEl.innerHTML = 'Вечер начинается';
       return;
     }
-
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const m = Math.floor((diff / (1000 * 60)) % 60);
-
     timerEl.innerHTML = `До начала вечера: ${d} д · ${h} ч · ${m} мин`;
   }
 
